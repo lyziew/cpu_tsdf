@@ -22,16 +22,17 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}")
 # Add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
+set(OpenCV_DIR /usr/local/share/OpenCV)
+find_package(OpenCV REQUIRED)
 find_package(PCL 1.7 QUIET REQUIRED)
-
+find_package(Eigen3 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 find_package(Boost COMPONENTS program_options)
 include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
+link_directories(${Boost_LIBRARY_DIRS} ${EIGEN3_INCLUDE_DIR})
 
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -64,6 +65,10 @@ install(TARGETS integrate DESTINATION bin)
 add_executable (get_intrinsics src/prog/get_intrinsics.cpp)
 target_link_libraries(get_intrinsics ${PCL_LIBRARIES} ${Boost_PROGRAM_OPTIONS_LIBRARY})
 install(TARGETS get_intrinsics DESTINATION bin)
+
+add_executable (demo src/prog/demo.cpp)
+target_link_libraries(demo ${PCL_LIBRARIES} cpu_tsdf ${Boost_PROGRAM_OPTIONS_LIBRARY} ${OpenCV_LIBS})
+install(TARGETS demo DESTINATION bin)
 
 # Install the Header files preserving the directory
 set(HEADER_FILES include/cpu_tsdf/impl/tsdf_volume_octree.hpp
