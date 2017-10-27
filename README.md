@@ -40,7 +40,7 @@ These are just the basics. You can add colors, store your own metadata in voxels
 
 RUN Example
 =====
-Thanks for andyzeng/tsdf-fusion(https://github.com/andyzeng/tsdf-fusion)Test Data
+Thanks for andyzeng/tsdf-fusion (https://github.com/andyzeng/tsdf-fusion)  Test Data
 
 ```bash
 cd build 
